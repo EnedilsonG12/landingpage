@@ -10,8 +10,10 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const { login } = useAuth();
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // -------------------------
   // Login tradicional
@@ -22,7 +24,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
+      const res = await fetch(`${API_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -39,10 +41,18 @@ function Login() {
       login({ email: payload.email, role: payload.role }, data.token);
 
       // Navegación según rol
-      if (payload.role === "admin") navigate("/home");
-      else if (payload.role === "repartidor") navigate("/orders");
-      else navigate("/home");
+      switch (payload.role) {
+        case "admin":
+          navigate("/home");
+          break;
+        case "repartidor":
+          navigate("/orders");
+          break;
+        default:
+          navigate("/home");
+      }
     } catch (err) {
+      console.error("Error en login:", err);
       setError("Error de conexión con el servidor");
     } finally {
       setLoading(false);
@@ -63,14 +73,13 @@ function Login() {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/google-login`, {
+      const res = await fetch(`${API_URL}/api/google-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: credentialResponse.credential }),
-        credentials: "omit", // Igual que arriba
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
 
       if (!res.ok || !data?.token) {
         setError(data?.error || "Error al iniciar sesión con Google");
@@ -81,10 +90,18 @@ function Login() {
       login({ email: payload.email, role: payload.role }, data.token);
 
       // Navegación según rol
-      if (payload.role === "admin") navigate("/home");
-      else if (payload.role === "repartidor") navigate("/orders");
-      else navigate("/home");
+      switch (payload.role) {
+        case "admin":
+          navigate("/home");
+          break;
+        case "repartidor":
+          navigate("/orders");
+          break;
+        default:
+          navigate("/home");
+      }
     } catch (err) {
+      console.error("Error Google login:", err);
       setError("Error de conexión con el servidor");
     } finally {
       setLoading(false);
@@ -95,18 +112,16 @@ function Login() {
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <div id="login-container">
         <h1>Variedades los Hermanos</h1>
-        <h1>Inicio de Sesión</h1>
+        <h2>Inicio de Sesión</h2>
 
         <img src={logueo} alt="Login" className="login" />
 
-        {/* Login con email y contraseña */}
         <form onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="E-mail"
             autoFocus
             required
-            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -114,7 +129,6 @@ function Login() {
             type="password"
             placeholder="Contraseña"
             required
-            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

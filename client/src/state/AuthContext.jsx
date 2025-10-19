@@ -3,24 +3,25 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // guarda datos del usuario
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
-
-  // Restaurar usuario si hay token guardado
-  useEffect(() => {
-    if (token && !user) {
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
       try {
         const payload = JSON.parse(atob(token.split(".")[1]));
-        setUser({ email: payload.email, role: payload.role }); // 🔹 guardar role también
-      } catch (error) {
-        console.error("Error restaurando usuario:", error);
-        logout();
+        return { email: payload.email, role: payload.role };
+      } catch (err) {
+        console.error("Error restaurando usuario:", err);
+        localStorage.removeItem("token");
+        return null;
       }
     }
-  }, [token]);
+    return null;
+  });
+
+  const [token, setToken] = useState(() => localStorage.getItem("token") || null);
 
   const login = (userData, jwt) => {
-    setUser({ email: userData.email, role: userData.role }); // 🔹 guardar role
+    setUser({ email: userData.email, role: userData.role });
     setToken(jwt);
     localStorage.setItem("token", jwt);
   };

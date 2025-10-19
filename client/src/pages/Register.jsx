@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/register.css";
-import register from "../images/registro.png";
+import registerImg from "../images/registro.png";
 
 function Register() {
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
-    role: "usuario", // por defecto usuario
+    role: "user", // 🔹 coincide con el backend
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({
@@ -24,6 +24,9 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
+
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
         method: "POST",
@@ -35,26 +38,27 @@ function Register() {
 
       if (!res.ok) {
         setError(data.error || "No se pudo registrar el usuario");
-        setSuccess("");
         return;
       }
+
       setSuccess("Usuario registrado correctamente ✅");
-      setError("");
       setForm({ username: "", email: "", password: "", role: "user" });
-      
+
+      // Redirigir al login después de 1.5s
       setTimeout(() => {
         navigate("/login");
       }, 1500);
     } catch (err) {
-      setError("Error del servidor");
-      setSuccess("");
+      console.error("Error en registro:", err);
+      setError("Error de conexión con el servidor");
     }
   };
 
   return (
     <div id="register-container">
       <h2>Registro de Usuario</h2>
-      <img src={register} alt="Registro" className="logo" />
+      <img src={registerImg} alt="Registro" className="logo" />
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -68,7 +72,7 @@ function Register() {
         <input
           type="email"
           name="email"
-          placeholder="Correo electronico"
+          placeholder="Correo electrónico"
           value={form.email}
           onChange={handleChange}
           required
@@ -83,13 +87,14 @@ function Register() {
         />
 
         <button type="submit">Registrarse</button>
+
         <p>
-        ¿Ya tienes una cuenta? 👉 <Link to="/">Iniciar Sesion</Link>
-      </p>
+          ¿Ya tienes una cuenta? 👉 <Link to="/login">Iniciar Sesión</Link>
+        </p>
       </form>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p className="error">{error}</p>}
+      {success && <p className="success">{success}</p>}
     </div>
   );
 }
