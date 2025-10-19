@@ -26,7 +26,6 @@ function Login() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        credentials: "omit", // Cambia a 'include' si manejas cookies
       });
 
       const data = await res.json().catch(() => null);
