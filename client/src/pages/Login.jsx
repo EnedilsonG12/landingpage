@@ -13,7 +13,9 @@ function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  // -------------------------
   // Login tradicional
+  // -------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -24,6 +26,7 @@ function Login() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        credentials: "omit", // Cambia a 'include' si manejas cookies
       });
 
       const data = await res.json().catch(() => null);
@@ -36,10 +39,9 @@ function Login() {
       const payload = JSON.parse(atob(data.token.split(".")[1]));
       login({ email: payload.email, role: payload.role }, data.token);
 
+      // Navegación según rol
       if (payload.role === "admin") navigate("/home");
-      else navigate("/home");
-
-      if (payload.role === "repartidor") navigate("/orders");
+      else if (payload.role === "repartidor") navigate("/orders");
       else navigate("/home");
     } catch (err) {
       setError("Error de conexión con el servidor");
@@ -48,16 +50,27 @@ function Login() {
     }
   };
 
+  // -------------------------
   // Login con Google
+  // -------------------------
   const handleGoogleLogin = async (credentialResponse) => {
     setLoading(true);
     setError("");
+
+    if (!credentialResponse?.credential) {
+      setError("Token de Google inválido");
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/google-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: credentialResponse.credential }),
+        credentials: "omit", // Igual que arriba
       });
+
       const data = await res.json();
 
       if (!res.ok || !data?.token) {
@@ -68,7 +81,9 @@ function Login() {
       const payload = JSON.parse(atob(data.token.split(".")[1]));
       login({ email: payload.email, role: payload.role }, data.token);
 
+      // Navegación según rol
       if (payload.role === "admin") navigate("/home");
+      else if (payload.role === "repartidor") navigate("/orders");
       else navigate("/home");
     } catch (err) {
       setError("Error de conexión con el servidor");
@@ -92,6 +107,7 @@ function Login() {
             placeholder="E-mail"
             autoFocus
             required
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -99,6 +115,7 @@ function Login() {
             type="password"
             placeholder="Contraseña"
             required
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -106,9 +123,11 @@ function Login() {
             {loading ? "Cargando..." : "Iniciar Sesión"}
           </button>
         </form>
+
         <p>
           ¿No tienes cuenta? 👉 <Link to="/register">Regístrate</Link>
         </p>
+
         <p>O inicia sesión con Google:</p>
         <GoogleLogin
           onSuccess={handleGoogleLogin}
