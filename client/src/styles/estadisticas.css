@@ -1,0 +1,93 @@
+.dashboard-container {
+  padding: 20px;
+  font-family: 'Times New Roman', sans-serif;
+  perspective: 1500px; /* Añade perspectiva 3D */
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.2s;
+  transform: translateZ(0); /* para forzar layer 3D */
+}
+
+.stats-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  transform-style: preserve-3d;
+}
+
+.card {
+  background-color: #2a2a3d;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  flex: 1;
+  text-align: center;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  opacity: 0;
+  transform: translateY(20px) rotateX(0deg) rotateY(0deg);
+  animation: rowFadeIn 0.5s forwards;
+  transform-style: preserve-3d;
+}
+
+.card:hover {
+  transform: rotateX(15deg) rotateY(15deg) scale(1.1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  cursor: pointer;
+}
+
+.card:nth-child(1) { animation-delay: 0.3s; }
+.card:nth-child(2) { animation-delay: 0.4s; }
+.card:nth-child(3) { animation-delay: 0.5s; }
+.card:nth-child(4) { animation-delay: 0.6s; }
+
+.charts {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  transform-style: preserve-3d;
+}
+
+.chart {
+  flex: 1;
+  background-color: #2a2a3d;
+  padding: 20px;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px) rotateX(0deg) rotateY(0deg);
+  animation: rowFadeIn 0.5s forwards;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.chart:hover {
+  transform: rotateX(12deg) rotateY(-12deg) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  cursor: pointer;
+}
+
+.chart:nth-child(1) { animation-delay: 0.7s; }
+.chart:nth-child(2) { animation-delay: 0.8s; }
+
+/* Keyframes */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes rowFadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}

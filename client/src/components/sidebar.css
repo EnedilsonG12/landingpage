@@ -1,0 +1,255 @@
+/* ===========================
+   Sidebar general
+=========================== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 235px;
+  height: 100%;
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #00ff99);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  background-repeat: no-repeat;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* footer al final */
+  padding: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  border: none;
+  transition: width 0.3s ease, left 0.3s ease;
+  z-index: 1000;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===========================
+   Sidebar colapsada
+=========================== */
+.sidebar.collapsed {
+  width: 80px;
+  padding: 20px 8px;
+  text-align: center;
+}
+
+/* ===========================
+   Botón colapsar/expandir
+=========================== */
+.collapse-btn {
+  background: #0cff7c;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.collapse-btn:hover {
+  background: #00cc7a;
+}
+
+/* ===========================
+   Título de Sidebar
+=========================== */
+.sidebar-title {
+  color: #0cff7c;
+  text-shadow: 0 0 5px #0cff7c, 0 0 10px #00ffff;
+  transition: opacity 0.3s;
+}
+
+.sidebar.collapsed .sidebar-title {
+  opacity: 0;
+}
+
+/* ===========================
+   Menú
+=========================== */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Links y botones */
+.sidebar a,
+.sidebar .btn-modal {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  text-decoration: none;
+  background-color: transparent;
+  padding: 5px 15px;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: rowFadeIn 0.5s forwards;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar.collapsed a,
+.sidebar.collapsed .btn-modal {
+  justify-content: center;
+  gap: 0;
+  padding: 10px 5px;
+}
+
+/* Efecto neón deslizante */
+.sidebar a::before,
+.sidebar .btn-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, transparent, rgb(22, 225, 229));
+  transition: all 0.4s;
+  z-index: 0;
+}
+
+.sidebar a:hover::before,
+.sidebar .btn-modal:hover::before {
+  left: 0;
+}
+
+/* Hover 3D + efecto neón */
+.sidebar a:hover,
+.sidebar .btn-modal:hover {
+  transform: rotateX(8deg) rotateY(8deg) scale(1.05);
+  box-shadow: 0 0 20px #00ffff;
+}
+
+/* Texto dentro de span */
+.sidebar a span,
+.sidebar .btn-modal span {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+
+.sidebar.collapsed a span,
+.sidebar.collapsed .btn-modal span {
+  opacity: 0; /* oculta texto, deja solo íconos */
+}
+
+/* Quitar puntos de las listas en el menú */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar li {
+  margin: 0;
+  padding: 0;
+}
+/* ===========================
+   Botones de acción (footer)
+=========================== */
+.btn-success {
+  background-color: transparent;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #bb0c0c;
+  transform: rotateX(8deg) rotateY(8deg) scale(1.05);
+  box-shadow: 0 0 12px #ff4d4d, 0 0 20px #ff4d4d;
+}
+
+/* ===========================
+   Sidebar footer
+=========================== */
+.sidebar-footer {
+  margin-top: auto;
+}
+
+/* ===========================
+   Animación fade-in
+=========================== */
+@keyframes rowFadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   Imagen dentro del sidebar
+=========================== */
+.sidebar img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 2px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* ===========================
+   Layout principal
+=========================== */
+main {
+  transition: margin-left 0.3s ease;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  background: #0cff7c;
+  color: #000;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.cart-badge {
+  top: -6px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1;
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    left: -240px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}

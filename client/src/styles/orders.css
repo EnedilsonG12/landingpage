@@ -1,0 +1,97 @@
+/* Contenedor de la tabla con animación 3D */
+.orders-container {
+  padding: 20px;
+  font-family: 'Times New Roman', serif;
+  animation: fadeInUp 0.8s ease forwards;
+  color: azure;
+  perspective: 1000px; /* Para efecto 3D */
+}
+
+/* Título con fade-in */
+.orders-container h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #fff;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* Tabla */
+.orders-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1e1e2f; /* fondo oscuro */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transform-style: preserve-3d;
+}
+
+/* Cabecera */
+.orders-container thead {
+  background-color: #2196F3;
+  color: #fff;
+}
+
+.orders-container thead th {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+/* Filas y celdas con animación */
+.orders-container tbody tr {
+  opacity: 0;
+  transform: translateY(20px) rotateX(5deg);
+  animation: rowFadeIn 0.5s forwards;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.orders-container tbody tr:nth-child(1) { animation-delay: 0.3s; }
+.orders-container tbody tr:nth-child(2) { animation-delay: 0.4s; }
+.orders-container tbody tr:nth-child(3) { animation-delay: 0.5s; }
+.orders-container tbody tr:nth-child(4) { animation-delay: 0.6s; }
+.orders-container tbody tr:nth-child(5) { animation-delay: 0.7s; }
+
+/* Hover 3D en filas */
+.orders-container tbody tr:hover {
+  transform: translateY(-5px) rotateX(0deg) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  background-color: #2a2a3d;
+  cursor: pointer;
+}
+
+/* Celdas */
+.orders-container tbody td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+/* Filas alternadas */
+.orders-container tbody tr:nth-child(even) {
+  background-color: #252535;
+}
+
+/* Total destacado */
+.orders-container tbody td:nth-child(6) {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+/* Animaciones keyframes */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes rowFadeIn {
+  0% { opacity: 0; transform: translateY(20px) rotateX(5deg); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+}

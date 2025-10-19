@@ -1,0 +1,148 @@
+/* Contenedor principal con fondo oscuro y blur */
+.body {
+  font-family: "Times New Roman", Times, serif;
+  /*background: url("../images/accesorios.jpg") no-repeat center center fixed;*/
+ background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #00ff99);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  height: 100vh;
+  background-repeat: no-repeat;
+  overflow:auto;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.login {
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+}
+/* Caja del login: glass + neón + 3D */
+#login-container {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 20px;
+  border-radius: 16px;
+  margin-top: 0px;
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+
+  /* Borde degradado holográfico */
+  border: 3px solid transparent;
+  border-image: linear-gradient(135deg, #0cff7c, #00ffff, #38dd1f) 1;
+
+  /* Sombras para efecto 3D */
+  box-shadow:
+    0 4px 0 #00cccc,
+    0 8px 0 #009999,
+    0 12px 20px rgba(0, 255, 200, 0.4),
+    inset 0 0 20px #0cff7c44,
+    inset 0 0 35px #00ffff33;
+
+  /* Animación flotante */
+  animation: float3D 6s ease-in-out infinite;
+  margin: auto;
+}
+
+/* Animación 3D */
+@keyframes float3D {
+  0%   { transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(0px); }
+  50%  { transform: perspective(1000px) rotateX(-3deg) rotateY(3deg) translateY(-12px); }
+  100% { transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(0px); }
+}
+
+/* Inputs estilo cyber */
+input {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 12px 0;
+  border-radius: 10px;
+  border: 1px solid #0cff7c;
+  background-color: rgba(0, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 0 8px #0cff7c;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #38dd1f;
+  box-shadow: 0 0 12px #38dd1f, 0 0 20px #0cff7c;
+}
+
+input::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+/* Botón con neón */
+button {
+  width: 80%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  color: #000;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: rgb(12, 171, 215);
+}
+
+/* Títulos con neón */
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-shadow: 0 0 8px #0cff7c, 0 0 16px #00ffff, 0 0 20px #38dd1f;
+}
+
+/* Enlaces */
+p a {
+  color: #0cff7c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+P{
+  color: #ffffff;
+  text-shadow: 0 0 5px #0cff7c;
+}
+
+/* Error */
+.error {
+  margin-top: 10px;
+  color: #ff3860;
+  text-shadow: 0 0 5px #ff3860;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  #login-container {
+    padding: 20px 15px;
+    width: 90%;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}

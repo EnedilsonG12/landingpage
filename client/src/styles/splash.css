@@ -1,0 +1,126 @@
+/* Contenedor principal */
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0;
+  height: 100vh;
+  width: 100vw;           /* ocupa toda la pantalla */
+  background: transparent;
+  color: #00ff99;
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 2.5s;  /* dura en pantalla antes de desaparecer */
+  overflow: hidden;        /* evita scroll interno */
+  position: fixed;         /* evita scroll externo */
+  top: 0;
+  left: 0;
+  z-index: 9999;           /* asegura que esté arriba de todo */
+}
+
+/* Evitar scroll en todo el body mientras el splash está activo */
+body {
+  overflow: hidden;
+}
+
+/* Logo circular con efecto de giro */
+.splash-logo {
+  width: 350px;             /* aumentado de 250px a 350px */
+  height: 350px;
+  background: url("../images/Variedades.png") center/cover no-repeat;
+  border-radius: 50%;
+  position: relative;
+  animation: spinCoin 3s infinite linear;
+  transform-style: preserve-3d;
+  box-shadow: 0 8px 20px rgba(0, 255, 153, 0.3); /* sombra sutil */
+  transition: transform 0.3s ease;
+}
+
+.splash-logo:hover {
+  transform: scale(1.05) rotateY(360deg);
+}
+
+/* Efecto 3D simple opcional */
+.splash-logo::before,
+.splash-logo::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  background: inherit;
+}
+
+.splash-logo::after {
+  transform: rotateY(180deg);
+}
+
+/* Título elegante */
+.splash-title {
+  font-family: "Times New Roman", sans-serif;
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-top: 20px;
+  color: #00ff99;
+  font-weight: bold;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+/* Animación de aparición del texto */
+.splash-title::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  color: #00ff99;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #00ff99;
+  animation: revealText 2.5s ease-in-out forwards;
+}
+
+/* Animación de revelado de texto */
+@keyframes revealText {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* Animación de giro del logo */
+@keyframes spinCoin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+/* Fade out al desaparecer */
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .splash-logo {
+    width: 280px;
+    height: 280px;
+  }
+
+  .splash-title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .splash-logo {
+    width: 220px;
+    height: 220px;
+  }
+
+  .splash-title {
+    font-size: 2rem;
+    letter-spacing: 1.5px;
+  }
+}

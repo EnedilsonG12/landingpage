@@ -1,0 +1,154 @@
+/* Contenedor principal con fondo oscuro y blur */
+.body {
+  font-family: "Times New Roman", Times, serif;
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #00ff99);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  height: 100vh;
+  background-repeat: no-repeat;
+  overflow: auto;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Caja del registro: glass + neón + 3D */
+#register-container {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 20px;
+  border-radius: 16px;
+  margin-top: 0px;
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+
+  /* Borde degradado holográfico */
+  border: 3px solid transparent;
+  border-image: linear-gradient(135deg, #0cff7c, #00ffff, #38dd1f) 1;
+
+  /* Sombras para efecto 3D */
+  box-shadow:
+    0 4px 0 #00cccc,
+    0 8px 0 #009999,
+    0 12px 20px rgba(0, 255, 200, 0.4),
+    inset 0 0 20px #0cff7c44,
+    inset 0 0 35px #00ffff33;
+
+  /* Animación flotante */
+  animation: float3D 6s ease-in-out infinite;
+  margin: auto;
+}
+
+/* Animación 3D */
+@keyframes float3D {
+  0%   { transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(0px); }
+  50%  { transform: perspective(1000px) rotateX(-3deg) rotateY(3deg) translateY(-12px); }
+  100% { transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(0px); }
+}
+
+/* Logo con efecto neón */
+.logo {
+  max-width: 200px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #0cff7c, 0 0 20px #00ffff;
+  transition: all 0.3s ease;
+}
+
+/* Inputs estilo cyber */
+input {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 12px 0;
+  border-radius: 10px;
+  border: 1px solid #0cff7c;
+  background-color: rgba(0, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 0 8px #0cff7c;
+  transition: all 0.3s ease;
+}
+
+input::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+
+input:focus {
+  border-color: #38dd1f;
+  box-shadow: 0 0 12px #38dd1f, 0 0 20px #0cff7c;
+}
+
+/* Botón con neón */
+button {
+  width: 80%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  background-color: #18b3eb;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px #0cff7c, 0 0 20px #00ffff;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: rgb(12, 171, 215);
+}
+
+/* Título con neón */
+h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-shadow: 0 0 8px #0cff7c, 0 0 16px #00ffff, 0 0 20px #38dd1f;
+}
+
+/* Enlaces */
+p a {
+  color: #0cff7c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* Mensajes de error y éxito */
+.error {
+  margin-top: 10px;
+  color: #ff3860;
+  text-shadow: 0 0 5px #ff3860;
+}
+
+.success {
+  margin-top: 10px;
+  color: #0cff7c;
+  text-shadow: 0 0 5px #0cff7c;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  #register-container {
+    padding: 20px 15px;
+    width: 90%;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}

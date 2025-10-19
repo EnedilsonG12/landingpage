@@ -1,0 +1,291 @@
+/* =========================
+   cart.css - Optimizado
+========================= */
+
+/* Contenedor principal */
+.cart-container {
+  max-width: 900px;
+  margin: 80px auto; /* reducido para fondos animados */
+  padding: 20px 30px; /* padding más compacto */
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(7, 245, 233, 0.6), 0 0 20px rgba(0, 255, 255, 0.3);
+  font-family: 'Times New Roman', sans-serif; /* tipografía moderna */
+  color: #fff;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Animación shake/bounce */
+.cart-container.shake {
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%   { transform: scale(1); }
+  25%  { transform: scale(1.05) rotate(-3deg); }
+  50%  { transform: scale(1.08) rotate(3deg); }
+  75%  { transform: scale(1.05) rotate(-2deg); }
+  100% { transform: scale(1); }
+}
+
+/* Animación checkout */
+.cart-container.checkout-animate {
+  animation: cartCheckoutAnim 1s forwards ease-in-out;
+}
+
+@keyframes cartCheckoutAnim {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  30% { transform: scale(1.1) rotate(-5deg); opacity: 0.9; }
+  60% { transform: scale(0.9) rotate(10deg) translateY(-60px); opacity: 0.7; }
+  80% { transform: scale(0.7) rotate(-15deg) translateY(-120px); opacity: 0.5; }
+  100% { transform: scale(0) rotate(25deg) translateY(-300px); opacity: 0; }
+}
+
+/* Icono carrito */
+.cart-icon {
+  display: block;
+  margin: 0 auto 15px;
+  width: 120px; /* más compacto para móviles */
+  height: auto;
+  filter: drop-shadow(0 0 8px cyan);
+}
+
+/* Título */
+.cart-container h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #0ff;
+  text-shadow: 0 0 6px cyan, 0 0 12px #0ff;
+  font-size: 1.8rem;
+}
+
+/* Mensaje carrito vacío */
+.cart-container p {
+  text-align: center;
+  color: #aaa;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* Item del carrito */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* más separación */
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+  background: rgba(0, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+/* Nombre del producto */
+.cart-item .name {
+  flex: 1;
+  font-weight: 600;
+  text-shadow: 0 0 5px #0ff;
+}
+
+/* Input cantidad */
+.cart-item input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border-radius: 6px;
+  border: none;
+  text-align: center;
+  background: #111;
+  color: #0ff;
+  box-shadow: inset 0 0 6px cyan;
+}
+
+.cart-item input[type="number"]:focus {
+  outline: none;
+  box-shadow: 0 0 8px #0ff, inset 0 0 6px cyan;
+}
+
+/* Precio */
+.cart-item .price {
+  width: 80px;
+  text-align: right;
+  font-weight: 600;
+  color: #0ff;
+}
+
+/* Botón quitar */
+.cart-item button {
+  padding: 5px 10px;
+  background: transparent;
+  border: 1px solid #ff4444;
+  color: #ff4444;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cart-item button:hover {
+  background: #ff4444;
+  color: #fff;
+  box-shadow: 0 0 8px #ff4444;
+}
+
+/* Total */
+.cart-container h3 {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #0ff;
+  text-shadow: 0 0 5px cyan;
+}
+
+/* Botón checkout */
+.checkout-btn {
+  display: block;
+  margin: 15px 0 0 auto;
+  padding: 10px 18px;
+  background: linear-gradient(90deg, #00ccff, #00ffaa);
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.checkout-btn:hover {
+  background: linear-gradient(90deg, #00ffaa, #00ccff);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px cyan;
+}
+
+/* Mensaje login */
+.login-msg {
+  text-align: center;
+  color: #ffcc00;
+  margin-top: 12px;
+  font-weight: 500;
+  text-shadow: 0 0 5px #ff0;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+}
+
+/* Contenido del Modal */
+.modal-content {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 50px; /* reducido para móviles */
+  border-radius: 15px;
+  width: 450px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 0 18px rgba(0,255,200,0.5);
+  color: #fff;
+  text-align: center;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+/* Botón cerrar */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: radial-gradient(circle, #ff0000, #990000);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px red;
+  transition: all 0.2s ease;
+}
+.close-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px red;
+}
+
+/* Animación del modal */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botones y texto dentro del modal */
+.modal-content h2 {
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff, 0 0 16px #0ff;
+  margin-bottom: 20px;
+}
+.modal-content button {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-content .checkout-btn {
+  background-color: #0ff;
+  color: #000;
+}
+.modal-content .checkout-btn:hover {
+  background-color: #00e6e6;
+}
+
+.img{
+  max-width: 150px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .cart-container {
+    padding: 15px;
+    margin: 50px 10px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .cart-item .price {
+    text-align: left;
+  }
+
+  .checkout-btn {
+    width: 100%;
+  }
+
+  .cart-icon {
+    width: 100px;
+  }
+
+  .modal-content {
+    padding: 30px;
+    width: 90%;
+  }
+}

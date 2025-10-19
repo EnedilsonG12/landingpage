@@ -1,0 +1,336 @@
+/* ===========================
+   Layout general con fondo animado
+=========================== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: transparent;
+  color: #fff;
+  font-family: 'Times New Roman', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Sidebar y contenedor principal */
+.home-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===========================
+   Contenedor de productos
+=========================== */
+.home-container {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+/* ===========================
+   Títulos con efecto glow animado
+=========================== */
+.productos-title,
+.category-title {
+  --border-right: 4px;
+  --text-stroke-color: rgb(243, 140, 15);
+  --animation-color: #37FF8B;
+  --fs-size: 3rem;
+
+  position: relative;
+  font-size: var(--fs-size);
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+  font-family: "Arial", sans-serif;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.productos-title::before,
+.category-title::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  color: var(--animation-color);
+  border-right: var(--border-right) solid var(--animation-color);
+  -webkit-text-stroke: 1px var(--animation-color);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: revealText 4s ease-in-out infinite;
+}
+
+@keyframes revealText {
+  0%, 10% { width: 0%; }
+  40%, 60% { width: 100%; }
+  90%, 100% { width: 0%; }
+}
+
+.category-section {
+  margin-bottom: 40px;
+}
+
+/* ===========================
+   Grid de cards
+=========================== */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ===========================
+   Card con glow y giro al cargar
+=========================== */
+.card {
+  position: relative;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  transform-style: preserve-3d;
+  opacity: 0;
+  animation: spinOnLoad 1.2s ease forwards;
+}
+
+@keyframes spinOnLoad {
+  0% { transform: rotateY(0deg) scale(0.9); opacity: 0; }
+  50% { transform: rotateY(180deg) scale(1.05); opacity: 1; }
+  100% { transform: rotateY(360deg) scale(1); opacity: 1; }
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 12px;
+  background: transparent;
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: neonGlow 6s linear infinite;
+}
+
+@keyframes neonGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(231, 117, 3, 0.9),
+              0 0 20px rgba(231, 117, 3, 0.9);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #fff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+
+/* ===========================
+   Descripción toggle (click)
+=========================== */
+.card .description {
+  font-size: 0.85rem;
+  color: #ccc;
+  max-height: 40px;        /* Ocultamos parte del texto */
+  overflow: hidden;
+  transition: max-height 0.4s ease, color 0.3s ease;
+  cursor: pointer;         /* Mano al pasar por encima */
+  margin-bottom: 10px;
+}
+
+.card .description.expanded {
+  max-height: 200px;       /* Al hacer click muestra más texto */
+  color: #0cff7c;          /* Cambia el color para indicar expansión */
+}
+
+/* ===========================
+   Precios
+=========================== */
+.old-price {
+  text-decoration: line-through;
+  color: #ff4d4d;
+  margin-right: 5px;
+}
+
+.new-price {
+  font-weight: bold;
+  color: #00ff99;
+}
+
+/* ===========================
+   Botones con efecto 3D y colores
+=========================== */
+.card button {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 0;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* ===========================
+   Banda diagonal de descuento
+=========================== */
+.discount-badge {
+  position: absolute;
+  top: 12px;
+  right: -40px;
+  background: #ff4d4d;
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 50px;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  font-size: 0.8rem;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Barra de búsqueda icono + input */
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 40px; /* solo icono inicialmente */
+  transition: width 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.search-form.expanded {
+  width: 650px; /* se expande */
+}
+
+.search-icon {
+  font-size: 1.5rem;
+  color: #0cff7c;
+  z-index: 2;
+}
+
+.search-form input {
+  flex: 1;
+  margin-left: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #0cff7c;
+  background-color: rgba(0, 255, 255, 0.05);
+  color: #fff;
+  outline: none;
+  box-shadow: 0 0 8px #0cff7c;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.search-form input::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+
+.search-form input:focus {
+  border-color: #38dd1f;
+  box-shadow: 0 0 12px #38dd1f, 0 0 20px #0cff7c;
+}
+
+.swal-popup {
+  background: rgba(0, 0, 0, 0.9);
+  color: #00ff99;
+  border: 2px solid #37FF8B;
+  border-radius: 15px;
+}
+
+.swal-title {
+  color: #ff9900;
+  font-weight: bold;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+
+.swal-content {
+  color: #000;
+  font-size: 0.95rem;
+}
+
+.swal-confirm-btn {
+  background-color: #37FF8B;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 8px 20px;
+  box-shadow: 0 0 10px #0cff7c;
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+@media (max-width: 1024px) {
+  .cards-container { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .cards-container { grid-template-columns: repeat(2, 1fr); }
+  .card img { height: 150px; }
+}
+
+@media (max-width: 480px) {
+  .cards-container { grid-template-columns: 1fr; }
+  .card img { height: 140px; }
+}
+
+@media (max-width: 768px) {
+  .search-form.expanded {
+    width: 180px; /* ancho reducido en tablet/móvil */
+  }
+}
+
+@media (max-width: 480px) {
+  .search-form {
+    width: 35px; /* solo icono */
+  }
+
+  .search-form.expanded {
+    width: 150px; /* ancho reducido en móvil */
+  }
+
+  .search-icon {
+    font-size: 1.2rem;
+  }
+
+  .search-form input {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+}
