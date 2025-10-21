@@ -121,6 +121,7 @@ function Login() {
             type="email"
             placeholder="E-mail"
             autoFocus
+            autoComplete="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -128,6 +129,7 @@ function Login() {
           <input
             type="password"
             placeholder="Contraseña"
+            autoComplete="current-password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}

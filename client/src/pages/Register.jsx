@@ -65,6 +65,7 @@ function Register() {
           name="username"
           placeholder="Nombre"
           autoFocus
+          autoComplete="username"
           value={form.username}
           onChange={handleChange}
           required
@@ -73,6 +74,7 @@ function Register() {
           type="email"
           name="email"
           placeholder="Correo electrónico"
+          autoComplete="email"
           value={form.email}
           onChange={handleChange}
           required
@@ -81,6 +83,7 @@ function Register() {
           type="password"
           name="password"
           placeholder="Contraseña"
+          autoComplete="current-password"
           value={form.password}
           onChange={handleChange}
           required
